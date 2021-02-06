@@ -3,8 +3,26 @@ const EMPTY_HEART = '♡'
 const FULL_HEART = '♥'
 
 // Your JavaScript code goes here!
+const errorModal = document.querySelector("#modal")
+errorModal.classList.toggle('hidden')
+const likeQuery = new RegExp (`${EMPTY_HEART}`)
 
+const likePost = post => {
+  let thisCard = post
+  mimicServerCall()
+    .then( thisCard.querySelector(".like-glyph").textContent = FULL_HEART)
+    .catch( errorModal.classList.toggle("hidden"))
+}
 
+const handleClick = e => {
+  switch (true) {
+    case (likeQuery.test(e.target.textContent)):
+      likePost(e.target.closest(".media-post"))
+      break
+  }
+}
+
+document.body.addEventListener('click', handleClick)
 
 
 //------------------------------------------------------------------------------
